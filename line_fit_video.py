@@ -108,7 +108,6 @@ if __name__ == '__main__':
 	#annotate_video('challenge_video.mp4', 'out1.mp4')
 	#annotate_video('highway01.mp4', 'out2.mp4')
 	
-
 	# Show example annotated image on screen for sanity check
 	img_file = 'test_images/test2.jpg'
 	img = mpimg.imread(img_file)
