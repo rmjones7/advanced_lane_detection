@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/usr/local/lib/python3.5/site-packages')
+
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -102,6 +105,9 @@ def annotate_video(input_file, output_file):
 if __name__ == '__main__':
 	# Annotate the video
 	annotate_video('project_video.mp4', 'out.mp4')
+	#annotate_video('challenge_video.mp4', 'out1.mp4')
+	#annotate_video('highway01.mp4', 'out2.mp4')
+	
 
 	# Show example annotated image on screen for sanity check
 	img_file = 'test_images/test2.jpg'
