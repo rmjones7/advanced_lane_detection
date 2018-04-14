@@ -161,8 +161,8 @@ def viz1(binary_warped, ret, save_file=None):
 	plt.imshow(out_img)
 	plt.plot(left_fitx, ploty, color='yellow')
 	plt.plot(right_fitx, ploty, color='yellow')
-	plt.xlim(0, 1280)
-	plt.ylim(720, 0)
+	plt.xlim(0, 640)
+	plt.ylim(360, 0)
 	if save_file is None:
 		plt.show()
 	else:
@@ -212,8 +212,8 @@ def viz2(binary_warped, ret, save_file=None):
 	plt.imshow(result)
 	plt.plot(left_fitx, ploty, color='yellow')
 	plt.plot(right_fitx, ploty, color='yellow')
-	plt.xlim(0, 1280)
-	plt.ylim(720, 0)
+	plt.xlim(0, 640)
+	plt.ylim(360, 0)
 	if save_file is None:
 		plt.show()
 	else:
@@ -225,11 +225,12 @@ def calc_curve(left_lane_inds, right_lane_inds, nonzerox, nonzeroy):
 	"""
 	Calculate radius of curvature in meters
 	"""
-	y_eval = 719  # 720p video/image, so last (lowest on screen) y index is 719
+	#y_eval = 719  # 360p video/image, so last (lowest on screen) y index is 719
+	y_eval = 359
 
 	# Define conversions in x and y from pixels space to meters
-	ym_per_pix = 30/720 # meters per pixel in y dimension
-	xm_per_pix = 3.7/700 # meters per pixel in x dimension
+	ym_per_pix = 30/360*2 # meters per pixel in y dimension
+	xm_per_pix = 3.7/700*2 # meters per pixel in x dimension
 
 	# Extract left and right line pixel positions
 	leftx = nonzerox[left_lane_inds]
@@ -259,7 +260,7 @@ def calc_vehicle_offset(undist, left_fit, right_fit):
 	vehicle_offset = undist.shape[1]/2 - (bottom_x_left + bottom_x_right)/2
 
 	# Convert pixel offset to meters
-	xm_per_pix = 3.7/700 # meters per pixel in x dimension
+	xm_per_pix = 3.7/700*2 # meters per pixel in x dimension
 	vehicle_offset *= xm_per_pix
 
 	return vehicle_offset
@@ -277,7 +278,7 @@ def final_viz(undist, left_fit, right_fit, m_inv, left_curve, right_curve, vehic
 	# Create an image to draw the lines on
 	#warp_zero = np.zeros_like(warped).astype(np.uint8)
 	#color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
-	color_warp = np.zeros((720, 1280, 3), dtype='uint8')  # NOTE: Hard-coded image dimensions
+	color_warp = np.zeros((360, 640, 3), dtype='uint8')  # NOTE: Hard-coded image dimensions
 
 	# Recast the x and y points into usable format for cv2.fillPoly()
 	pts_left = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
@@ -301,4 +302,3 @@ def final_viz(undist, left_fit, right_fit, m_inv, left_curve, right_curve, vehic
 	result = cv2.putText(result, label_str, (30,70), 0, 1, (0,0,0), 2, cv2.LINE_AA)
 
 	return result
-
